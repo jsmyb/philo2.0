@@ -6,10 +6,9 @@
 /*   By: lsoghomo <lsoghomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 16:18:53 by lsoghomo          #+#    #+#             */
-/*   Updated: 2022/02/18 16:42:23 by lsoghomo         ###   ########.fr       */
+/*   Updated: 2022/02/26 16:28:41 by lsoghomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "libs/philo.h"
 
@@ -17,26 +16,26 @@ void	ft_usleep(uint64_t time)
 {
 	uint64_t	start_time;
 
-	start_time = get_time();
-	while (get_time() - start_time < time)
+	start_time = gt();
+	while (gt() - start_time < time)
 		usleep(50);
 }
 
 void	mutex_locks(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->data->forks[philo->left_fork]);
-	ft_print_status("has taken a fork", philo->data, philo->ind + 1);
+	ft_print_status("has taken a fork", philo->data, philo->ind + 1, YELLOW);
 	pthread_mutex_lock(&philo->data->forks[philo->right_fork]);
-	ft_print_status("has taken a fork", philo->data, philo->ind + 1);
-	ft_print_status("is eating", philo->data, philo->ind + 1);
+	ft_print_status("has taken a fork", philo->data, philo->ind + 1, YELLOW);
+	ft_print_status("is eating", philo->data, philo->ind + 1, GREEN);
 	ft_usleep(philo->data->time_to_eat);
 	philo->times_ate++;
-	philo->last_time_ate = get_time();
+	philo->last_time_ate = gt();
 	pthread_mutex_unlock(&philo->data->forks[philo->right_fork]);
 	pthread_mutex_unlock(&philo->data->forks[philo->left_fork]);
-	ft_print_status("is sleeping", philo->data, philo->ind + 1);
+	ft_print_status("is sleeping", philo->data, philo->ind + 1, PURPLE);
 	ft_usleep(philo->data->time_to_sleep);
-	ft_print_status("is thinking", philo->data, philo->ind + 1);
+	ft_print_status("is thinking", philo->data, philo->ind + 1, ORANGE);
 }
 
 void	*ft_start(void *arg)

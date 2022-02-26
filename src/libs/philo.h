@@ -6,13 +6,12 @@
 /*   By: lsoghomo <lsoghomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 16:19:24 by lsoghomo          #+#    #+#             */
-/*   Updated: 2022/02/18 16:42:20 by lsoghomo         ###   ########.fr       */
+/*   Updated: 2022/02/26 16:28:53 by lsoghomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
-
 
 # include <stdio.h>
 # include <unistd.h>
@@ -31,6 +30,7 @@ typedef struct s_philo
 	int				ind;
 	int				left_fork;
 	int				right_fork;
+	int				statusof;
 	int				times_ate;
 	struct s_data	*data;
 }					t_philo;
@@ -42,7 +42,7 @@ typedef struct s_data
 	pthread_t		philo_thread[255];
 	pthread_mutex_t	forks[255];
 	pthread_mutex_t	print;
-	uint64_t		program_time;
+	uint64_t		p_t;
 	int				number_of_philos;
 	uint64_t		time_to_die;
 	uint64_t		time_to_eat;
@@ -51,7 +51,7 @@ typedef struct s_data
 	t_philo			philos[255];
 }					t_data;
 
-uint64_t	get_time(void);
+uint64_t	gt(void);
 void		*ft_start(void *arg);
 int			ft_init(t_data *data);
 int			ft_join(t_data *data);
@@ -60,6 +60,6 @@ int			ft_atoi(const char *str);
 void		*check_status(void *arg);
 void		check_eating(t_data *data);
 int			store_data(t_data *data, char **args, int argc);
-int			ft_print_status(char *str, t_data *data, int id);
+int			ft_print_status(char *str, t_data *data, int id, char *c);
 
 #endif

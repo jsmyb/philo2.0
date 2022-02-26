@@ -6,10 +6,9 @@
 /*   By: lsoghomo <lsoghomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 16:19:01 by lsoghomo          #+#    #+#             */
-/*   Updated: 2022/02/18 16:42:26 by lsoghomo         ###   ########.fr       */
+/*   Updated: 2022/02/26 16:29:23 by lsoghomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "libs/philo.h"
 
@@ -44,18 +43,18 @@ int	ft_isdigit(int arg)
 	return (0);
 }
 
-int	ft_print_status(char *str, t_data *data, int id)
+int	ft_print_status(char *str, t_data *data, int id, char *c)
 {
 	if (!data->terminate)
 	{
 		pthread_mutex_lock(&data->print);
-		printf("%llu %d %s\n", get_time() - data->program_time, id, str);
+		printf("%s %llu:ms %d %s%s\n", c, gt() - data->p_t, id, str, RESET);
 		pthread_mutex_unlock(&data->print);
 	}
 	return (0);
 }
 
-uint64_t	get_time(void)
+uint64_t	gt(void)
 {
 	static struct timeval	tv;
 

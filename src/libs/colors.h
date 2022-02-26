@@ -6,10 +6,9 @@
 /*   By: lsoghomo <lsoghomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 16:26:25 by lsoghomo          #+#    #+#             */
-/*   Updated: 2022/02/18 16:42:20 by lsoghomo         ###   ########.fr       */
+/*   Updated: 2022/02/26 15:55:52 by lsoghomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef COLORS_H
 # define COLORS_H

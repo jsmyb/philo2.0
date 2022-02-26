@@ -6,15 +6,14 @@
 #    By: lsoghomo <lsoghomo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/18 16:19:09 by lsoghomo          #+#    #+#              #
-#    Updated: 2022/02/18 17:33:48 by lsoghomo         ###   ########.fr        #
+#    Updated: 2022/02/26 15:54:59 by lsoghomo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS =	src/philo.c \
 		src/utils.c \
 		src/threads.c \
-#		src/checker.c \
-#		src/thread_utils.c \
+		src/utils2.c \
 
 OBJS = $(SRCS:.c=.o)
 

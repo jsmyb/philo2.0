@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lsoghomo <lsoghomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 16:18:51 by lsoghomo          #+#    #+#             */
-/*   Updated: 2022/02/18 17:22:45 by lsoghomo         ###   ########.fr       */
+/*   Updated: 2022/02/26 16:28:39 by lsoghomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	init_philos(t_data *data)
 	i = 0;
 	while (i < data->number_of_philos)
 	{
-		data->philos[i].last_time_ate = get_time();
+		data->philos[i].last_time_ate = gt();
 		data->philos[i].ind = i;
 		data->philos->ate_enough = false;
 		data->philos[i].data = data;
@@ -69,10 +69,9 @@ int	store_data(t_data *data, char **args, int argc)
 	else
 		data->times_must_eat = -1;
 	init_philos(data);
-	data->program_time = get_time();
+	data->p_t = gt();
 	return (0);
 }
-
 
 void	check_eating(t_data *data)
 {
@@ -108,9 +107,9 @@ void	*check_status(void *arg)
 		while (i < data->number_of_philos)
 		{
 			if (data->philos[i].last_time_ate
-				+ data->time_to_die < get_time())
+				+ data->time_to_die < gt())
 			{
-				ft_print_status("died", data, data->philos[i].ind + 1);
+				ft_print_status("died", data, data->philos[i].ind + 1, RED);
 				data->terminate = true;
 				pthread_mutex_unlock(&data->forks[data->philos[i].left_fork]);
 				break ;
@@ -119,51 +118,6 @@ void	*check_status(void *arg)
 		}
 		if (data->times_must_eat != -1)
 			check_eating(data);
-	}
-	return (0);
-}
-
-
-int	ft_init(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (i < data->number_of_philos)
-	{
-		pthread_mutex_init(&data->forks[i], NULL);
-		if (pthread_create(&data->philo_thread[i], NULL,
-				&ft_start, (void *)&data->philos[i]) != 0)
-		{
-			return (1);
-		}
-		i++;
-	}
-	if (pthread_create(&data->check_state, NULL,
-			&check_status, (void *)data) != 0)
-	{
-		return (1);
-	}
-	return (0);
-}
-
-int	ft_join(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (i < data->number_of_philos)
-	{
-		if (pthread_join(data->philo_thread[i], NULL) != 0)
-		{
-			usleep(100);
-			return (2);
-		}
-		i++;
-	}
-	if (pthread_join(data->check_state, NULL) != 0)
-	{
-		return (2);
 	}
 	return (0);
 }
